@@ -34,7 +34,6 @@ public class CharacterController2D : MonoBehaviour
 	private void Awake()
 	{
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
-		FirePointRenderer = FirePoint.GetComponent<SpriteRenderer>();
 		if (OnLandEvent == null)
 			OnLandEvent = new UnityEvent();
 
@@ -146,17 +145,12 @@ public class CharacterController2D : MonoBehaviour
 		Vector3 theScale = transform.localScale;
 		theScale.x *= -1;
 		transform.localScale = theScale;
-
+		FirePoint.transform.Rotate(0, 180, 0);
+		
 		// Debug.Log("Hello: " + FirePoint.name);
 		// Quaternion objectRotation = FirePoint.transform.rotation;
-		// Debug.Log("Hello: " + transform.rotation);
+		// FirePoint.transform.rotation = Quaternion.Euler(new Vector3(0,FirePoint.transform.rotation.y,0));
+		// Debug.Log("Hello: " + FirePoint.transform.rotation.y);
 
-		// FirePoint.transform.rotation = Quaternion.Euler(new Vector3(0,180,0));
-
-
-		// theScale = FirePoint.transform.localScale;
-		// theScale.x *= -1;
-		// FirePoint.transform.localScale = theScale;
-		// transform.Rotate(0f, 180f, 0f);
 	}
 }
