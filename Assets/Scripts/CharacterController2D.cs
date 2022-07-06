@@ -8,6 +8,7 @@ public class CharacterController2D : MonoBehaviour
 	[Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;	// How much to smooth out the movement
 	[SerializeField] private bool m_AirControl = false;							// Whether or not a player can steer while jumping;
 	[SerializeField] private LayerMask m_WhatIsGround;							// A mask determining what is ground to the character
+	[SerializeField] private Transform FirePoint;
 	[SerializeField] private Transform m_GroundCheck;							// A position marking where to check if the player is grounded.
 	[SerializeField] private Transform m_CeilingCheck;							// A position marking where to check for ceilings
 	[SerializeField] private Collider2D m_CrouchDisableCollider;				// A collider that will be disabled when crouching
@@ -33,7 +34,7 @@ public class CharacterController2D : MonoBehaviour
 	private void Awake()
 	{
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
-
+		FirePointRenderer = FirePoint.GetComponent<SpriteRenderer>();
 		if (OnLandEvent == null)
 			OnLandEvent = new UnityEvent();
 
@@ -92,7 +93,8 @@ public class CharacterController2D : MonoBehaviour
 				// Disable one of the colliders when crouching
 				if (m_CrouchDisableCollider != null)
 					m_CrouchDisableCollider.enabled = false;
-			} else
+			} 
+			else
 			{
 				// Enable the collider when not crouching
 				if (m_CrouchDisableCollider != null)
@@ -135,6 +137,8 @@ public class CharacterController2D : MonoBehaviour
 
 	private void Flip()
 	{
+		// m_FacingRight = !m_FacingRight;
+		// transform.Rotate(0f, 180f, 0f);
 		// Switch the way the player is labelled as facing.
 		m_FacingRight = !m_FacingRight;
 
@@ -142,5 +146,17 @@ public class CharacterController2D : MonoBehaviour
 		Vector3 theScale = transform.localScale;
 		theScale.x *= -1;
 		transform.localScale = theScale;
+
+		// Debug.Log("Hello: " + FirePoint.name);
+		// Quaternion objectRotation = FirePoint.transform.rotation;
+		// Debug.Log("Hello: " + transform.rotation);
+
+		// FirePoint.transform.rotation = Quaternion.Euler(new Vector3(0,180,0));
+
+
+		// theScale = FirePoint.transform.localScale;
+		// theScale.x *= -1;
+		// FirePoint.transform.localScale = theScale;
+		// transform.Rotate(0f, 180f, 0f);
 	}
 }
